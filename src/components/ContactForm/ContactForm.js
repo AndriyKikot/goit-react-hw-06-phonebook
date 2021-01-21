@@ -1,11 +1,16 @@
 import { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
+// import { useSelector, useDispatch } from 'react-redux';
 import s from './ContactForm.module.css';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
-function ContactForm({ onAddContact, checkingContactName }) {
+import { connect } from 'react-redux';
+import { addContact } from '../../redux/contacts/contacts-actions';
+
+function ContactForm({ contact, onAddContact }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  // const dispatch = useDispatch();
 
   const handleChange = event => {
     const { name, value } = event.currentTarget;
@@ -22,17 +27,25 @@ function ContactForm({ onAddContact, checkingContactName }) {
     }
   };
 
+  // const checkingContactName = verificationName => {
+  //   const normalizedName = verificationName.toLowerCase();
+  //   return addContact.payload.find(({ name }) => name.toLowerCase() === normalizedName);
+  // };
+
   const handleSubmit = event => {
     event.preventDefault();
 
-    const duplicateName = checkingContactName(name);
+    // const newContact = (name, number);
+    onAddContact(name, number);
 
-    if (duplicateName) {
-      alert(`${name} is already in contacts`);
-    } else {
-      const newContact = { id: uuidv4(), name, number };
-      onAddContact(newContact);
-    }
+    // const duplicateName = checkingContactName(name);
+
+    // if (duplicateName) {
+    //   alert(`${name} is already in contacts`);
+    // } else {
+    //   const newContact = (name, number);
+    //   onAddContact(newContact);
+    // }
 
     reset();
   };
@@ -77,8 +90,16 @@ function ContactForm({ onAddContact, checkingContactName }) {
   );
 }
 
-ContactForm.propTypes = {
-  onAddContact: PropTypes.func.isRequired,
-};
+// ContactForm.propTypes = {
+//   onAddContact: PropTypes.func.isRequired,
+// };
 
-export default ContactForm;
+const mapStateToProps = state => ({
+  contacts: state.contacts.items,
+});
+
+const mapDispatchToProps = dispatch => ({
+  onAddContact: (name, number) => dispatch(addContact(name, number)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
