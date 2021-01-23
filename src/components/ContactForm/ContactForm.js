@@ -1,15 +1,19 @@
 import { useState } from 'react';
 // import { v4 as uuidv4 } from 'uuid';
 // import { useSelector, useDispatch } from 'react-redux';
-import s from './ContactForm.module.css';
-// import PropTypes from 'prop-types';
+import styles from './ContactForm.module.css';
+import { toast } from 'react-toastify';
 
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import { addContact } from '../../redux/contacts/contacts-actions';
+import { useSelector, useDispatch } from 'react-redux';
+import { getContacts } from '../../redux/contacts/contacts-selectors';
 
-function ContactForm({ onAddContact }) {
+function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
 
   const handleChange = event => {
     const { name, value } = event.currentTarget;
@@ -26,19 +30,39 @@ function ContactForm({ onAddContact }) {
     }
   };
 
+  const checkingEmptyQuery = (name, number) => {
+    return name.trim() === '' || number.trim() === '';
+  };
+
+  const checkingContactName = name => {
+    return contacts.find(
+      contact => contact.name.toLowerCase() === name.toLowerCase(),
+    );
+  };
+
+  const checkingContactNumber = number => {
+    return contacts.find(contact => contact.number === number);
+  };
+
   const handleSubmit = event => {
     event.preventDefault();
 
-    onAddContact(name, number);
+    if (checkingEmptyQuery(name, number)) {
+      toast.warning('Enter contact name and number phone!');
+      return;
+    }
 
-    // const duplicateName = checkingContactName(name);
+    if (checkingContactName(name, number)) {
+      toast.info(`This ${name} is already in the phonebook!`);
+      return;
+    }
 
-    // if (duplicateName) {
-    //   alert(`${name} is already in contacts`);
-    // } else {
-    //   const newContact = (name, number);
-    //   onAddContact(newContact);
-    // }
+    if (checkingContactNumber(number)) {
+      toast.info(`This ${number} is already in the phonebook!`);
+      return;
+    }
+
+    dispatch(addContact(name, number));
 
     reset();
   };
@@ -49,11 +73,11 @@ function ContactForm({ onAddContact }) {
   };
 
   return (
-    <form className={s.contact__form} onSubmit={handleSubmit}>
-      <label className={s.contact__label}>
+    <form className={styles.contact__form} onSubmit={handleSubmit}>
+      <label className={styles.contact__label}>
         Name
         <input
-          className={s.contact__input}
+          className={styles.contact__input}
           placeholder="Enter name..."
           type="text"
           value={name}
@@ -63,10 +87,10 @@ function ContactForm({ onAddContact }) {
         />
       </label>
 
-      <label className={s.contact__label}>
+      <label className={styles.contact__label}>
         Number
         <input
-          className={s.contact__input}
+          className={styles.contact__input}
           placeholder="Enter number..."
           type="tel"
           value={number}
@@ -76,19 +100,21 @@ function ContactForm({ onAddContact }) {
         />
       </label>
 
-      <button className={s.contact__btn} type="submit">
+      <button className={styles.contact__btn} type="submit">
         Add contact
       </button>
     </form>
   );
 }
 
-const mapStateToProps = state => ({
-  contacts: state.contacts.items,
-});
+export default ContactForm;
 
-const mapDispatchToProps = dispatch => ({
-  onAddContact: (name, number) => dispatch(addContact(name, number)),
-});
+// const mapStateToProps = state => ({
+//   contacts: state.contacts.items,
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
+// const mapDispatchToProps = dispatch => ({
+//   onAddContact: (name, number) => dispatch(addContact(name, number)),
+// });
+
+// export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
