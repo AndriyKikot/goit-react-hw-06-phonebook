@@ -1,12 +1,10 @@
-import styles from './ContactList.module.css';
-
-import ContactListItem from './ContactListItem';
-
-// import { connect } from 'react-redux';
-import { deleteContact } from '../../redux/contacts/contacts-actions';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { deleteContact } from '../../redux/contacts/contacts-actions';
 import { filterContacts } from '../../redux/contacts/contacts-selectors';
+import ContactListItem from './ContactListItem';
+
+import styles from './ContactList.module.css';
 
 const ContactList = () => {
   const contacts = useSelector(filterContacts);
@@ -28,6 +26,10 @@ const ContactList = () => {
 };
 
 export default ContactList;
+
+// ===============  Step 1  ===============
+
+// import { connect } from 'react-redux';
 
 // const getFilterContacts = (allContacts, filter) => {
 //   const normalizedFilter = filter.toLowerCase();

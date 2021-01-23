@@ -1,3 +1,5 @@
+// ===============  Step 1  ===============
+
 const types = {
   ADD: 'contacts/Add',
   DELETE: 'contacts/Delete',

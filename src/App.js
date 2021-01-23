@@ -1,20 +1,17 @@
-// import { useState } from 'react';
-import './App.css';
 import { useSelector } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { getContacts } from './redux/contacts/contacts-selectors';
-
 import Container from './components/Container';
 import ContactForm from './components/ContactForm';
 import Filter from './components/Filter';
 import ContactList from './components/ContactList';
 import NumberContacts from './components/NumberContacts';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
+import './App.css';
 
 function App() {
-  // const [contacts, setContacts] = useLocalStorage('contacts', []);
-  // const [filter, setFilter] = useState('');
   const contacts = useSelector(getContacts);
 
   return (

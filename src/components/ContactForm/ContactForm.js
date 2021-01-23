@@ -1,13 +1,11 @@
 import { useState } from 'react';
-// import { v4 as uuidv4 } from 'uuid';
-// import { useSelector, useDispatch } from 'react-redux';
-import styles from './ContactForm.module.css';
+import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
-// import { connect } from 'react-redux';
 import { addContact } from '../../redux/contacts/contacts-actions';
-import { useSelector, useDispatch } from 'react-redux';
 import { getContacts } from '../../redux/contacts/contacts-selectors';
+
+import styles from './ContactForm.module.css';
 
 function ContactForm() {
   const [name, setName] = useState('');
@@ -108,6 +106,11 @@ function ContactForm() {
 }
 
 export default ContactForm;
+
+// ===============  Step 1  ===============
+
+// import { useSelector, useDispatch } from 'react-redux';
+// import { connect } from 'react-redux';
 
 // const mapStateToProps = state => ({
 //   contacts: state.contacts.items,

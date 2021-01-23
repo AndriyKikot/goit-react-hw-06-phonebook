@@ -1,9 +1,9 @@
-// import PropTypes from 'prop-types';
-import styles from './Filter.module.css';
-// import { connect } from 'react-redux';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeFilter } from '../../redux/contacts/contacts-actions';
+
 import { getFilter } from '../../redux/contacts/contacts-selectors';
+import { changeFilter } from '../../redux/contacts/contacts-actions';
+
+import styles from './Filter.module.css';
 
 const Filter = () => {
   const value = useSelector(getFilter);
@@ -27,6 +27,10 @@ const Filter = () => {
 };
 
 export default Filter;
+
+// ===============  Step 1  ===============
+
+// import { connect } from 'react-redux';
 
 // Filter.propTypes = {
 //   value: PropTypes.string.isRequired,

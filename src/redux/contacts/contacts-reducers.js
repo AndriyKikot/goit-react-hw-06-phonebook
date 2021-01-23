@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-// import types from './contacts-types';
 import { createReducer } from '@reduxjs/toolkit';
+
 import { addContact, deleteContact, changeFilter } from './contacts-actions';
 
 const items = createReducer([], {
@@ -12,6 +12,15 @@ const items = createReducer([], {
 const filter = createReducer('', {
   [changeFilter]: (_, { payload }) => payload,
 });
+
+export default combineReducers({
+  items,
+  filter,
+});
+
+// ===============  Step 1  ===============
+
+// import types from './contacts-types';
 
 // const items = (state = [], { type, payload }) => {
 //   switch (type) {
@@ -35,8 +44,3 @@ const filter = createReducer('', {
 //       return state;
 //   }
 // };
-
-export default combineReducers({
-  items,
-  filter,
-});
