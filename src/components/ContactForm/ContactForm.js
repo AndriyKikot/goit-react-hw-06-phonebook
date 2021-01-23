@@ -7,10 +7,9 @@ import s from './ContactForm.module.css';
 import { connect } from 'react-redux';
 import { addContact } from '../../redux/contacts/contacts-actions';
 
-function ContactForm({ contact, onAddContact }) {
+function ContactForm({ onAddContact }) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  // const dispatch = useDispatch();
 
   const handleChange = event => {
     const { name, value } = event.currentTarget;
@@ -27,15 +26,9 @@ function ContactForm({ contact, onAddContact }) {
     }
   };
 
-  // const checkingContactName = verificationName => {
-  //   const normalizedName = verificationName.toLowerCase();
-  //   return addContact.payload.find(({ name }) => name.toLowerCase() === normalizedName);
-  // };
-
   const handleSubmit = event => {
     event.preventDefault();
 
-    // const newContact = (name, number);
     onAddContact(name, number);
 
     // const duplicateName = checkingContactName(name);
@@ -89,10 +82,6 @@ function ContactForm({ contact, onAddContact }) {
     </form>
   );
 }
-
-// ContactForm.propTypes = {
-//   onAddContact: PropTypes.func.isRequired,
-// };
 
 const mapStateToProps = state => ({
   contacts: state.contacts.items,

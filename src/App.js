@@ -11,26 +11,6 @@ function App() {
   // const [contacts, setContacts] = useLocalStorage('contacts', []);
   // const [filter, setFilter] = useState('');
 
-  // const addContact = contact => {
-  //   setContacts(prevContacts => [...prevContacts, contact]);
-  // };
-
-  // const deleteContact = contactId => {
-  //   setContacts(contacts.filter(contact => contact.id !== contactId));
-  // };
-
-  // const changeFilter = ({ target }) => {
-  //   const { value } = target;
-  //   setFilter(value);
-  // };
-
-  // const checkingContactName = verificationName => {
-  //   const normalizedName = verificationName.toLowerCase();
-  //   return contacts.find(({ name }) => name.toLowerCase() === normalizedName);
-  // };
-
-  // const filterContacts = getFilterContacts();
-
   return (
     <div className="App">
       <Container>
